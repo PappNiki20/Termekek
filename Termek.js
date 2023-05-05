@@ -1,26 +1,32 @@
 class Termek {
   #adat;
   #divelem;
-  #buttonElem;
+  kedvencButtonElem;
   constructor(adat, szuloelem) {
-    
-    console.log(adat);
     this.#adat = adat;
     szuloelem.append(`<div class="szElem"> <p>Név: ${this.#adat.nev}</p> 
         <p>Fajta: ${adat.fajta}</p> <p>Kor: ${
       adat.kor
-    }</p> <button id="${adat.id}">Kedvencekhez ad</button></div>`);
+    }</p> <button class="kedvenc">Kedvencekhez ad</button>
+    <button class="torol">Törlés</button>
+    </div>`);
     this.#divelem = szuloelem.children("div:last-child");
-    this.#buttonElem = this.#divelem.children("button");
-    this.#buttonElem.on("click", () => {
-      //  this.setElem('<img src="x.png" alt="tictac">')
-      this.esemenyTrigger();
+    this.kedvencButtonElem = this.#divelem.children(".kedvenc");
+    this.torolButtonElem = this.#divelem.children(".torol");
+    this.kedvencButtonElem.on("click", () => {
+      console.log(this.#adat.id);
+      this.esemenyTrigger("kedvencekhez");
+    });
+    this.torolButtonElem.on("click", () => {
+      console.log(this.#adat.id);
+      this.esemenyTrigger("torol");
     });
   }
-  esemenyTrigger() {
-    const esemeny = new CustomEvent("gombkattintas", { detail: this.#adat.id });
+  esemenyTrigger(esemenyNev) {
+    const esemeny = new CustomEvent(esemenyNev, { detail: this.#adat.id });
     window.dispatchEvent(esemeny);
   }
+  
 }
 
 export default Termek;
