@@ -1,4 +1,3 @@
-
 import { adat } from "./adatok.js";
 import Termek from "/Termek.js";
 class Termekek {
@@ -9,11 +8,13 @@ class Termekek {
     for (let index = 0; index < adat.length; index++) {
       const Termek1 = new Termek(adat[index], SZULOELEM);
     }
-    this.#buttonElem.on("click",  function ()  {
-        this.#kedvencek.append(this.adat);
-        console.log(this.#kedvencek)
-});
+    /* a function csak a html elemre vonatkozik*/
+    $(window).on("gombkattintas", (event) => {
+      this.#kedvencek.push(event.detail)
+      console.log(this.#kedvencek);
+      console.log(event.detail);
+    });
+    console.log(this.#kedvencek);
   }
-   
 }
 export default Termekek;
